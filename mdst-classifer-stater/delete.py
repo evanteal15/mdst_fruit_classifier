@@ -2,8 +2,8 @@ import os
 import shutil
 
 # Paths to your directories
-first_directory = "fruits-360_dataset_100x100/fruits-360/Test"
-second_directory = "fruits-360_dataset_100x100/fruits-360/Training"
+first_directory = "mdst-classifer-stater/fruits-360_dataset_100x100/fruits-360/Test"
+second_directory = "mdst-classifer-stater/fruits-360_dataset_100x100/fruits-360/Training"
 
 # Get lists of subdirectories in both directories
 first_subdirs = set(os.listdir(first_directory))
