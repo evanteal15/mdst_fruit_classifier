@@ -5,11 +5,14 @@ import pandas as pd
 # Load environment variables from .env file
 load_dotenv()
 
-import backend.predict_fruit as predict_fruit
+import predict_fruit as predict_fruit
  
 # TODO: Ensure your EDMAMAM_APP_ID AND EDAMAM_APP_KEY are properly defined
-app_id = os.getenv('EDAMAN_APP_ID')
-app_key = os.getenv('EDAMAN_APP_KEY')
+# EDAMAM_APP_ID= 'ecd57eed'
+# EDAMAM_APP_KEY= '48ab3ba9a1f62a6e4aae9d3dce0a3dd1'
+
+app_id = 'ecd57eed'
+app_key = '48ab3ba9a1f62a6e4aae9d3dce0a3dd1'
 
 def analyze_ingredient(ingredient):
     # Edamam API endpoint for ingredient analysis
@@ -34,7 +37,7 @@ def analyze_ingredient(ingredient):
             return None
         return data
     else:
-        print(f"Failed to analyze ingredient: {response.status_code}")
+        print(f"Failed to analyze ingredient: {ingredient}, {response.status_code}")
         return None
 
 
@@ -57,7 +60,7 @@ def get_prediction(image_path):
 #** REPLACE INGREDIENT WITH PREDICTED LABEL/MAKE SURE TO INCLUDE QUANTITY + RIGHT FORMAT **
 
 # Replace with the path to your test image
-image_path = "test_images/3_100.jpg"
+image_path = "52_100.jpg"
 
 #TODO: Call the get_prediction function from above
 predicted_fruit = get_prediction(image_path)
