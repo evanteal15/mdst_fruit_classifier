@@ -5,11 +5,11 @@ import pandas as pd
 # Load environment variables from .env file
 load_dotenv()
 
-import predict_fruit
+import backend.predict_fruit as predict_fruit
  
 # TODO: Ensure your EDMAMAM_APP_ID AND EDAMAM_APP_KEY are properly defined
-app_id = os.getenv('EDAMAM_APP_ID')
-app_key = os.getenv('EDAMAM_APP_KEY')
+app_id = os.getenv('EDAMAN_APP_ID')
+app_key = os.getenv('EDAMAN_APP_KEY')
 
 def analyze_ingredient(ingredient):
     # Edamam API endpoint for ingredient analysis
@@ -41,7 +41,7 @@ def analyze_ingredient(ingredient):
 def get_prediction(image_path):
     
     # TODO: Set the url to the url you used in predict_fruit.py
-    url = ""
+    url = "http://localhost:5003/predict"
     with open(image_path, 'rb') as img:
         files = {'image': (os.path.basename(image_path), img, 'image/jpeg')}
         response = requests.post(url, files=files)
@@ -60,7 +60,7 @@ def get_prediction(image_path):
 image_path = "test_images/3_100.jpg"
 
 #TODO: Call the get_prediction function from above
-# predicted_fruit = 
+predicted_fruit = get_prediction(image_path)
 
 ingredient_info = analyze_ingredient(predicted_fruit + " 1")
 
@@ -79,4 +79,8 @@ if ingredient_info:
 
     # TODO: Convert to DataFrame (Hint: use pd.DataFrame.from_dict)
 
+    pd.DataFrame.from_dict(nutrients_data)
+
     # TODO: Display the DataFrame
+
+    print(pd.DataFrame.from_dict(nutrients_data))
