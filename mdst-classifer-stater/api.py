@@ -86,4 +86,4 @@ if ingredient_info:
 
     # TODO: Display the DataFrame
 
-    print(pd.DataFrame.from_dict(nutrients_data))
+    print(pd.DataFrame.from_dict(nutrients_data).to_json())
