@@ -8,7 +8,7 @@ url = "http://localhost:5003/predict"
 
 def test_valid_image():
     # Test with a valid fruit image
-    image_path = "mdst-classifer-stater/fruits-360_dataset_100x100/fruits-360/Test/Grape Blue 1/20_100.jpg"  # You'll need to create this directory and add test images
+    image_path = "classifier/fruits-360_dataset_100x100/fruits-360/Test/Grape Blue 1/20_100.jpg"  # You'll need to create this directory and add test images
     
     with open(image_path, 'rb') as img:
         files = {'image': ('20_100.jpg', img, 'image/jpeg')}

@@ -32,7 +32,7 @@ def predict():
     
     # Load model
     try:
-        model = tf.keras.models.load_model('mdst-classifer-stater/fruitclassifier.keras')
+        model = tf.keras.models.load_model('classifier/fruitclassifier.keras')
     except Exception as e:
         print(f"Error loading model: {e}")
         return jsonify({'error': 'Model loading failed'}), 500
@@ -49,7 +49,7 @@ def predict():
     top_probabilities = yhat[0][top_indices]
     
     # Load fruits dictionary
-    with open("mdst-classifer-stater/directories.txt", 'r') as file:
+    with open("classifier/directories.txt", 'r') as file:
         content = file.read()
         fruits_dict = ast.literal_eval(content)
     

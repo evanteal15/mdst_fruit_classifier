@@ -21,6 +21,7 @@ def predict():
     """
     
     # TODO: Check if image is provided in the request
+    print(request.files)
     # Return error if no image is found
     if 'image' not in request.files:
         print('No image found')
@@ -47,7 +48,7 @@ def predict():
     # TODO: Load the model
     # Hint: Use try-except for error handling
     try:
-        model = tf.keras.models.load_model('mdst-classifer-stater/fruitclassifier.keras')
+        model = tf.keras.models.load_model('classifier/fruitclassifier.keras')
     except Exception as e:
         print('cant open model')
         return jsonify({'error': 'cant open model'}), 500
@@ -67,7 +68,7 @@ def predict():
     
     # TODO: Load fruits dictionary from 'Backend/directories.txt'
     # Hint: Use ast.literal_eval()
-    with open('mdst-classifer-stater/directories.txt', 'r') as f:
+    with open('classifier/directories.txt', 'r') as f:
         fruits = ast.literal_eval(f.read())
     
     # TODO: Return prediction
