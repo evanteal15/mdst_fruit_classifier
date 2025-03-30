@@ -9,6 +9,7 @@ import {
   Modal,
 } from "react-native";
 import ImageViewer from "/home/evanteal15/mdst/mdst-classifer-starter/mdst_fruit_classifier/my-app/components/ImageViewer";
+import RNFetchBlob from "rn-fetch-blob";
 
 const PlaceholderImage = require("@/assets/images/background-image.png");
 
@@ -65,23 +66,43 @@ export default function App() {
     try {
       console.log("Photo object:", photo);
 
-      const formData = new FormData();
-      const imageData = {
-        uri: photo.uri,
-        type: "image/jpeg",
-        name: "photo.jpg",
-      };
-      console.log("Image data being sent:", imageData);
+      // const formData = new FormData();
+      // const imageData = {
+      //   uri: photo.uri,
+      //   type: "image/jpeg",
+      //   name: "photo.jpg",
+      // };
+      // console.log("Image data being sent:", imageData);
 
-      formData.append("image", imageData as any);
+      // formData.append("image", imageData as any);
+
+      // Example using RNFetchBlob to handle the file
+      const fs = RNFetchBlob.fs;
+
+      // Convert the URI to a file path and then to a Blob
+      const imagePath = photo.uri.replace("file://", "");
+      let imageData = await fs.readFile(imagePath, "base64");
+      // let blob = RNFetchBlob.polyfill.Blob.build(imageData, {
+      //   type: "image/jpeg;BASE64",
+      // });
+      let blob = new Blob([imageData], { type: "image/jpeg" });
+
+      const formData = new FormData();
+      formData.append("image", blob, "photo.jpg");
+
+      // formData.append("image", {
+      //   uri: imageData.uri,
+      //   type: imageData.type,
+      //   name: imageData.name,
+      // });
 
       console.log("Sending POST request to server...");
-      const response = await fetch("http://192.168.1.135:5003/predict", {
+      const response = await fetch("http://172.30.123.55:5003/predict", {
         method: "POST",
         body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        // headers: {
+        //   "Content-Type": "multipart/form-data",
+        // },
       });
 
       console.log("Response status:", response.status);
