@@ -124,7 +124,29 @@ export default function App() {
       );
 
       const data = await response.json();
-      setNutritionData(data.totalNutrients);
+
+      // get only the desired nutrition data
+      const desiredNutrients = [
+        "ENERC_KCAL",
+        "FAT",
+        "FIBTG",
+        "SUGAR",
+        "CHOCDF",
+        "PROCNT",
+      ];
+      const filteredData = Object.keys(data.totalNutrients).reduce(
+        (acc: Record<string, any>, key: string) => {
+          if (desiredNutrients.includes(key)) {
+            acc[key] = data.totalNutrients[key];
+          }
+          return acc;
+        },
+        {} as Record<string, any>
+      );
+
+      setNutritionData(filteredData);
+
+      // setNutritionData(data.totalNutrients);
       setModalVisible(true);
     } catch (error) {
       console.error("Error fetching nutrition info:", error);
